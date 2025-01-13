@@ -1,0 +1,69 @@
+@startuml
+class Aluno{
+
+    -  id: Integer
+    -  nome: String
+    -  email: String
+    -  dtNascimento: LocalDate
+    -  turmas: List<Turma>
+    -  cursos: List<Curso>
+}
+
+class Area{
+
+    - id: Integer
+    - nome: String
+    - professores: List<Professor>
+    - cursos: List<Curso>
+}
+
+class Curso {
+    - id: Integer
+    - nome: String
+    - horas: Integer
+    - areaCurso: Area
+    - professores: List<Professor>
+    - alunos: List<Aluno>
+    - disciplinas: List<Disciplina>
+}
+
+class Disciplina{
+    - id: int
+    - nome: String
+    - horas: Integer
+    - objetivos: String
+    - conteudo: String
+    - turmas: List<Turma>
+    - cursos: List<Curso>
+}
+
+class Professor{
+    - id: int
+    - nome: String
+    - dtNascimento: LocalDate
+    - email: String
+    - cursoProfessor: Curso
+    - areaProfessor: Area
+    - turmas: List<Turma>
+}
+
+class Turma{
+    - id: int
+    - dtInicio: LocalDate
+    - dtFim: LocalDate
+    - turno: String
+    - professorTurma: Professor
+    - disciplinaTurma: Disciplina
+    - alunos: List<Aluno>
+}
+
+Aluno "many" *--* "many" Turma
+Aluno "many" *--* "many" Curso
+Area "1" *--* "many" Professor
+Area "1" *--* "many" Curso
+Curso "1" *--* "many" Professor
+Curso "many" *--* "many" Disciplina
+Disciplina "1" *--* "many" Turma
+Professor  "1" *--* "many" Turma
+
+@enduml
